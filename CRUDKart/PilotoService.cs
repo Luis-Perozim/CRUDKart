@@ -48,5 +48,37 @@ namespace CRUDKart
             }
         }
 
+        public void Editar()
+        {
+            Console.WriteLine("Informe o ID do piloto que deseja editar: ");
+            int id = int.Parse(Console.ReadLine());
+
+            var piloto = _pilotos.FirstOrDefault(p => p.Id == id);
+            if (piloto == null)
+            {
+                Console.WriteLine("Piloto não encontrado");
+                return;
+            }
+
+            Console.WriteLine($"Correção de nome ({piloto.Nome}): ");
+            string nome = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(nome))
+            {
+                piloto.Nome = nome;
+            }
+
+            Console.WriteLine($"Correção de idade ({piloto.Idade})");
+            if (int.TryParse(Console.ReadLine(), out int idade))
+            {
+                piloto.Idade = idade;
+            }
+
+            Console.WriteLine($"Correção de CPF ({piloto.Cpf})");
+            if (int.TryParse(Console.ReadLine(), out int cpf))
+            {
+                piloto.Cpf = cpf;
+            }
+        }
+
     }
 }
