@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -30,8 +31,22 @@ namespace CRUDKart
                 Cpf = cpf,
                 Idade = idade
             });
-            
+
             Console.WriteLine("Piloto cadastrado com sucesso!");
         }
+
+        public void Listar()
+        {
+            if (!_pilotos.Any())
+            {
+                Console.WriteLine("Nenhum piloto cadastrado.");
+                return;
+            }
+            foreach (var piloto in _pilotos)
+            {
+                Console.WriteLine($"ID: {piloto.Id}, Nome: {piloto.Nome}, CPF: {piloto.Cpf}, Idade: {piloto.Idade}");
+            }
+        }
+
     }
 }
