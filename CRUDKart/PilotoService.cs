@@ -80,5 +80,21 @@ namespace CRUDKart
             }
         }
 
+        public void Deletar()
+        {
+            Console.WriteLine("Informe o ID do piloto que deseja deletar: ");
+            int id = int.Parse(Console.ReadLine());
+
+            var piloto = _pilotos.FirstOrDefault(p => p.Id == id);
+            if (piloto == null)
+            {
+                Console.WriteLine("Piloto não encontrado");
+                return;
+            }
+
+            _pilotos.Remove(piloto);
+            Console.WriteLine("Piloto deletado com sucesso!");
+        }
+
     }
 }
