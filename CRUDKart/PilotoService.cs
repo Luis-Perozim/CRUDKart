@@ -19,7 +19,12 @@ namespace CRUDKart
             string nome = Console.ReadLine();
 
             Console.WriteLine("CPF: ");
-            int cpf = int.Parse(Console.ReadLine());
+            string cpf = (Console.ReadLine());
+            if(!Validacao.ValidaCPF.IsCpf(cpf))
+            {
+                Console.WriteLine("CPF inválido. Tente novamente.");
+                return;
+            }
 
             Console.WriteLine("Idade: ");
             int idade = int.Parse(Console.ReadLine());
@@ -74,9 +79,9 @@ namespace CRUDKart
             }
 
             Console.WriteLine($"Correção de CPF ({piloto.Cpf})");
-            if (int.TryParse(Console.ReadLine(), out int cpf))
+            if(!string.IsNullOrWhiteSpace(Console.ReadLine()))
             {
-                piloto.Cpf = cpf;
+                piloto.Cpf = Console.ReadLine();
             }
         }
 
