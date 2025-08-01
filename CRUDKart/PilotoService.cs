@@ -35,8 +35,8 @@ namespace CRUDKart
             }
 
             Console.WriteLine("Idade: ");
-            int idade = int.Parse(Console.ReadLine());
-            if (idade <= 0 && idade <=99 || idade == null)
+            string idadeEntrada = Console.ReadLine();
+            if (!int.TryParse(idadeEntrada, out int idade) || idade <= 0 || idade >= 99) //converte a entrada para inteiro
             {
                 Console.WriteLine("Idade inválida.");
                 return;
