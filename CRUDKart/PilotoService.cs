@@ -4,7 +4,10 @@ using System.Globalization;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Xml.Linq;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CRUDKart
 {
@@ -17,10 +20,15 @@ namespace CRUDKart
         {
             Console.WriteLine("Nome: ");
             string nome = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(nome) || nome.Any(char.IsDigit)) //verifica se o nome é nulo ou contém números
+            {
+                Console.WriteLine("Nome inválido. O nome não pode conter números ou ser vazio.");
+                return;
+            }
 
             Console.WriteLine("CPF: ");
             string cpf = (Console.ReadLine());
-            if(!Validacao.ValidaCPF.IsCpf(cpf))
+            if (!Validacao.ValidaCPF.IsCpf(cpf)) //valida o cpf usando a classe ValidaCPF
             {
                 Console.WriteLine("CPF inválido. Tente novamente.");
                 return;
@@ -28,6 +36,11 @@ namespace CRUDKart
 
             Console.WriteLine("Idade: ");
             int idade = int.Parse(Console.ReadLine());
+            if (idade <= 0 && idade <=99 || idade == null)
+            {
+                Console.WriteLine("Idade inválida.");
+                return;
+            }
 
             _pilotos.Add(new Piloto
             {
