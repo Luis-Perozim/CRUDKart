@@ -80,21 +80,38 @@ namespace CRUDKart
 
             Console.WriteLine($"Correção de nome ({piloto.Nome}): ");
             string nome = Console.ReadLine();
-            if (!string.IsNullOrWhiteSpace(nome))
+            if (string.IsNullOrWhiteSpace(nome) || nome.Any(char.IsDigit)) //verifica se o nome é nulo ou contém números
+            {
+                Console.WriteLine("Nome inválido. O nome não pode conter números ou ser vazio.");
+                return;
+            }
+            else
             {
                 piloto.Nome = nome;
             }
 
-            Console.WriteLine($"Correção de idade ({piloto.Idade})");
-            if (int.TryParse(Console.ReadLine(), out int idade))
+            Console.WriteLine($"Correção de CPF ({piloto.Cpf})");
+            string cpf = (Console.ReadLine());
+            if (!Validacao.ValidaCPF.IsCpf(cpf)) //valida o cpf usando a classe ValidaCPF
             {
-                piloto.Idade = idade;
+                Console.WriteLine("CPF inválido. Tente novamente.");
+                return;
+            }
+            else
+            {
+                piloto.Cpf = cpf;
             }
 
-            Console.WriteLine($"Correção de CPF ({piloto.Cpf})");
-            if(!string.IsNullOrWhiteSpace(Console.ReadLine()))
+            Console.WriteLine($"Correção de idade ({piloto.Idade})");
+            string idadeEntrada = Console.ReadLine();
+            if (!int.TryParse(idadeEntrada, out int idade) || idade <= 0 || idade >= 99) //converte a entrada para inteiro
             {
-                piloto.Cpf = Console.ReadLine();
+                Console.WriteLine("Idade inválida.");
+                return;
+            }
+            else
+            {
+                piloto.Idade = idade;
             }
         }
 
