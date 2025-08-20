@@ -42,12 +42,21 @@ namespace CRUDKart
                 return;
             }
 
+            Console.WriteLine("Data de nascimento: ");
+            string dataNascimento = Console.ReadLine();
+            if (string.IsNullOrEmpty(dataNascimento))
+            {
+                Console.WriteLine("Data inválida.");
+                return;
+            }
+
             _pilotos.Add(new Piloto
             {
                 Id = _proximoID++,
                 Nome = nome,
                 Cpf = cpf,
-                Idade = idade
+                Idade = idade,
+                DataNascimento = dataNascimento
             });
 
             Console.WriteLine("Piloto cadastrado com sucesso!");
@@ -62,7 +71,7 @@ namespace CRUDKart
             }
             foreach (var piloto in _pilotos)
             {
-                Console.WriteLine($"ID: {piloto.Id}, Nome: {piloto.Nome}, CPF: {piloto.Cpf}, Idade: {piloto.Idade}");
+                Console.WriteLine($"ID: {piloto.Id}, Nome: {piloto.Nome}, CPF: {piloto.Cpf}, NASC: {piloto.DataNascimento}, Idade: {piloto.Idade}");
             }
         }
 
@@ -78,7 +87,7 @@ namespace CRUDKart
                 return;
             }
 
-            Console.WriteLine($"Correção de nome ({piloto.Nome}): ");
+                Console.WriteLine($"Correção de nome ({piloto.Nome}): ");
             string nome = Console.ReadLine();
             if (string.IsNullOrWhiteSpace(nome) || nome.Any(char.IsDigit)) //verifica se o nome é nulo ou contém números
             {
@@ -112,6 +121,19 @@ namespace CRUDKart
             else
             {
                 piloto.Idade = idade;
+            }
+
+
+            Console.WriteLine($"Correção data de nascimento: ");
+            string dataNascimento = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(dataNascimento))
+            {
+                Console.WriteLine("Data inválida.");
+                return;
+            }
+            else
+            {
+                piloto.DataNascimento = dataNascimento;
             }
         }
 
