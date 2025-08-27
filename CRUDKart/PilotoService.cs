@@ -33,31 +33,26 @@ namespace CRUDKart
                 Console.WriteLine("CPF inválido. Tente novamente.");
                 return;
             }
-
-            Console.WriteLine("Idade: ");
-            string idadeEntrada = Console.ReadLine();
-            if (!int.TryParse(idadeEntrada, out int idade) || idade <= 0 || idade >= 99) //converte a entrada para inteiro
-            {
-                Console.WriteLine("Idade inválida.");
-                return;
-            }
-
+           
             Console.WriteLine("Data de nascimento: ");
-            string dataNascimento = Console.ReadLine();
-            if (string.IsNullOrEmpty(dataNascimento))
+            string dataString = Console.ReadLine();
+            DateTime dataNascimento = DateTime.Parse(dataString);
+            if (string.IsNullOrEmpty(dataString))
             {
                 Console.WriteLine("Data inválida.");
                 return;
-            }
+            } 
+
+            var idadeCalculada = DateTime.Now.Year - dataNascimento.Year;
 
             _pilotos.Add(new Piloto
-            {
-                Id = _proximoID++,
-                Nome = nome,
-                Cpf = cpf,
-                Idade = idade,
-                DataNascimento = dataNascimento
-            });
+                {
+                    Id = _proximoID++,
+                    Nome = nome,
+                    Cpf = cpf,
+                    Idade = idadeCalculada,
+                    DataNascimento = dataNascimento
+                });
 
             Console.WriteLine("Piloto cadastrado com sucesso!");
         }
@@ -71,7 +66,7 @@ namespace CRUDKart
             }
             foreach (var piloto in _pilotos)
             {
-                Console.WriteLine($"ID: {piloto.Id}, Nome: {piloto.Nome}, CPF: {piloto.Cpf}, NASC: {piloto.DataNascimento}, Idade: {piloto.Idade}");
+                Console.WriteLine($"ID: {piloto.Id}, Nome: {piloto.Nome}, CPF: {piloto.Cpf}, NASC: {piloto.DataNascimento.ToString("dd/MM/yyyy")}, Idade: {piloto.Idade}");
             }
         }
 
@@ -111,22 +106,10 @@ namespace CRUDKart
                 piloto.Cpf = cpf;
             }
 
-            Console.WriteLine($"Correção de idade ({piloto.Idade})");
-            string idadeEntrada = Console.ReadLine();
-            if (!int.TryParse(idadeEntrada, out int idade) || idade <= 0 || idade >= 99) //converte a entrada para inteiro
-            {
-                Console.WriteLine("Idade inválida.");
-                return;
-            }
-            else
-            {
-                piloto.Idade = idade;
-            }
-
-
             Console.WriteLine($"Correção data de nascimento: ");
-            string dataNascimento = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(dataNascimento))
+            string dataString = Console.ReadLine();
+            DateTime dataNascimento = DateTime.Parse(dataString);
+            if (string.IsNullOrEmpty(dataString))
             {
                 Console.WriteLine("Data inválida.");
                 return;
