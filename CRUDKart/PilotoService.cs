@@ -117,6 +117,8 @@ namespace CRUDKart
             else
             {
                 piloto.DataNascimento = dataNascimento;
+                var idadeCalculada = DateTime.Now.Year - dataNascimento.Year;
+                piloto.Idade = idadeCalculada;
             }
         }
 
