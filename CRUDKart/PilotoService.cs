@@ -45,9 +45,32 @@ namespace CRUDKart
 
             var idadeCalculada = DateTime.Now.Year - dataNascimento.Year;
 
+            string prefixoA = "A"; // Piloto maior de idade
+            string prefixoB = "B"; // Piloto menor de idade
+            int numero = 1;
+            string registro = string.Empty;
+
+            for (int i = 0; i < 100000; i++)
+            {
+                if (idadeCalculada >= 18)
+                {
+                    registro = $"{prefixoA}{numero:D5}";
+                }
+                else
+                {
+                    registro = $"{prefixoB}{numero:D5}";
+                }
+                if (!_pilotos.Any(p => p.Registro == registro))
+                {
+                    break;
+                }
+                numero++;
+            }
+
             _pilotos.Add(new Piloto
                 {
                     Id = _proximoID++,
+                    Registro = registro,
                     Nome = nome,
                     Cpf = cpf,
                     Idade = idadeCalculada,
@@ -66,7 +89,7 @@ namespace CRUDKart
             }
             foreach (var piloto in _pilotos)
             {
-                Console.WriteLine($"ID: {piloto.Id}, Nome: {piloto.Nome}, CPF: {piloto.Cpf}, NASC: {piloto.DataNascimento.ToString("dd/MM/yyyy")}, Idade: {piloto.Idade}");
+                Console.WriteLine($"ID: {piloto.Id}, Registro:{piloto.Registro}, Nome: {piloto.Nome}, CPF: {piloto.Cpf}, NASC: {piloto.DataNascimento.ToString("dd/MM/yyyy")}, Idade: {piloto.Idade}");
             }
         }
 
